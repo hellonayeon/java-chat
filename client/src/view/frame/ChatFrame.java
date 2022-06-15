@@ -1,34 +1,40 @@
 package view.frame;
 
-import network.MessageSender;
 import view.panel.ChatPanel;
-import view.panel.ChatRoomListPanel;
 import view.panel.ChatRoomUserListPanel;
 import view.panel.MenuPanel;
 
 import javax.swing.*;
-import java.net.Socket;
 
 public class ChatFrame extends JFrame {
 
-    String chatName;
+    String chatRoomName;
 
-    public static ChatPanel chatPanel;
+    ChatPanel chatPanel;
 
-    public static ChatRoomUserListPanel chatRoomUserListPanel;
+    ChatRoomUserListPanel chatRoomUserListPanel;
 
-    public ChatFrame(String chatName) {
-        super(chatName);
+    MenuPanel menuPanel;
+
+    public ChatFrame(String chatRoomName) {
+        super(chatRoomName);
 
         setLayout(null);
         setSize(830, 550);
 
-        this.chatName = chatName;
-        chatPanel = new ChatPanel(this);
+        this.chatRoomName = chatRoomName;
+        chatPanel = new ChatPanel(this, chatRoomName);
         chatRoomUserListPanel = new ChatRoomUserListPanel(this);
-
+        menuPanel = new MenuPanel(this, chatRoomName);
+        menuPanel.setExitBtnVisible(true);
 
         setVisible(true);
     }
+
+    public ChatPanel getChatPanel() {
+        return chatPanel;
+    }
+
+    public ChatRoomUserListPanel getChatRoomUserListPanel() { return chatRoomUserListPanel; }
 
 }

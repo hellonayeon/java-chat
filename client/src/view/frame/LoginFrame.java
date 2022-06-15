@@ -2,8 +2,7 @@ package view.frame;
 
 import app.Application;
 import domain.User;
-import dto.request.LoginDto;
-import dto.request.SendMessageDto;
+import dto.request.LoginRequest;
 import network.MessageSender;
 
 import javax.swing.*;
@@ -12,7 +11,7 @@ import java.awt.event.ActionListener;
 
 public class LoginFrame extends JFrame implements ActionListener {
 
-    ClientFrame clientFrame;
+    LobbyFrame lobbyFrame;
 
     JLabel idLabel = new JLabel("아이디 ");
 
@@ -24,8 +23,8 @@ public class LoginFrame extends JFrame implements ActionListener {
 
     JButton loginBtn = new JButton("로그인");
 
-    public LoginFrame(ClientFrame clientFrame, MessageSender sender) {
-        this.clientFrame = clientFrame;
+    public LoginFrame(LobbyFrame lobbyFrame, MessageSender sender) {
+        this.lobbyFrame = lobbyFrame;
 
         // 로그인 프레임 설정
         setLayout(null);
@@ -71,11 +70,11 @@ public class LoginFrame extends JFrame implements ActionListener {
         Application.users.add(user);
 
         // 사용자 정보 서보에 전송
-        Application.sender.sendMessage(new LoginDto(id, name));
+        Application.sender.sendMessage(new LoginRequest(id, name));
 
         // 화면 세팅
         this.dispose();
-        clientFrame.setVisible(true);
+        lobbyFrame.setVisible(true);
     }
 
 }

@@ -2,7 +2,7 @@ package view.panel;
 
 import app.Application;
 import domain.ChatRoom;
-import dto.request.EnterChatDto;
+import dto.request.EnterChatRequest;
 import view.frame.ChatFrame;
 
 import javax.swing.*;
@@ -37,22 +37,47 @@ public class ChatRoomListPanel extends JPanel {
         setBounds(410, 210, 400, 250);
     }
 
-    public void addChatRoomLabel() {
+    public void paintChatRoomList() {
         labelPanel.removeAll();
 
-        for (String key : Application.chatMap.keySet()) {
-            ChatRoom chatRoom = Application.chatMap.get(key);
-            JLabel label = new JLabel(chatRoom.getName() + "(" + chatRoom.getId() + ")");
-            label.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    Application.sender.sendMessage(new EnterChatDto(chatRoom.getId(), Application.me.getId()));
-                    new ChatFrame(chatRoom.getName());
-                }
-            });
+        for (ChatRoom chatRoom : Application.chatRooms) {
+            JLabel label = new JLabel(chatRoom.getName());
+            label.addMouseListener(new ChatRoomMouseAdapter(chatRoom.getName()));
             labelPanel.add(label);
         }
 
         revalidate();
+    }
+
+    public void addChatRoomLabel(String chatRoomName) {
+        JLabel label = new JLabel(chatRoomName);
+        label.addMouseListener(new ChatRoomMouseAdapter(chatRoomName));
+        labelPanel.add(label);
+
+        revalidate();
+    }
+
+    // 채팅방 레이블을 누르면, 해당 채팅방 접속
+    class ChatRoomMouseAdapter extends MouseAdapter {
+
+        String chatRoomName;
+
+        public ChatRoomMouseAdapter(String chatRoomName) {
+            this.chatRoomName = chatRoomName;
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if (Application.chatPanelMap.containsKey(chatRoomName)) {
+                System.out.println("[" + chatRoomName + "] 채팅방 이미 열려있음");
+                return;
+            }
+
+            ChatFrame chatFrame = new ChatFrame(chatRoomName);
+            Application.chatPanelMap.put(chatRoomName, chatFrame.getChatPanel()); // 채팅방 화면 관리
+            Application.chatRoomUserListPanelMap.put(chatRoomName, chatFrame.getChatRoomUserListPanel()); // 채팅방 사용자 리스트 관리
+
+            Application.sender.sendMessage(new EnterChatRequest(chatRoomName, Application.me.getId()));
+        }
     }
 }

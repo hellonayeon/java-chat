@@ -1,6 +1,6 @@
 package domain;
 
-import dto.request.LoginUserDto;
+import dto.request.LoginRequest;
 
 import java.net.Socket;
 import java.util.Date;
@@ -15,10 +15,10 @@ public class User {
 
     private Date createdAt; // 로그인 시점
 
-    public User(Socket socket, LoginUserDto dto) {
+    public User(Socket socket, LoginRequest req) {
         this.socket = socket;
-        this.id = dto.getId();
-        this.name = dto.getName();
+        this.id = req.getId();
+        this.name = req.getName();
 
         this.createdAt = new Date();
     }
@@ -40,6 +40,10 @@ public class User {
     }
 
     public String getEnterString() {
-        return name + " 님이 입장하셨습니다.";
+        return "[" + name + "]님이 입장했습니다.";
+    }
+
+    public String getExitString() {
+        return "[" + name + "]님이 퇴장했습니다.";
     }
 }

@@ -1,23 +1,20 @@
 package dto.response;
 
 import domain.ChatRoom;
-import dto.type.MessageType;
+import dto.type.DtoType;
 
 public class CreateChatRoomResponse extends DTO {
 
-    private String id;
-
-    private String name;
+    private String chatRoomName;
 
     public CreateChatRoomResponse(ChatRoom chatRoom) {
-        super(MessageType.CREATE_CHAT);
+        super(DtoType.CREATE_CHAT);
 
-        this.id = chatRoom.getId();
-        this.name = chatRoom.getName();
+        this.chatRoomName = chatRoom.getName();
     }
 
     @Override
     public String toString() {
-        return super.toString() + id + "," + name ;
+        return super.toString() + chatRoomName ;
     }
 }

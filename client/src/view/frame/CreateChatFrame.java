@@ -1,7 +1,7 @@
 package view.frame;
 
 import app.Application;
-import dto.request.CreateChatRoomDto;
+import dto.request.CreateChatRoomRequest;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -46,15 +46,18 @@ public class CreateChatFrame extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            String chatName = chatNameTextF.getText();
-            if (chatName.isEmpty()) {
+            String chatRoomName = chatNameTextF.getText();
+            if (chatRoomName.isEmpty()) {
+                System.out.println("채팅방 이름 공백 불가능");
                 return;
             }
 
-            Application.sender.sendMessage(new CreateChatRoomDto(chatName, Application.me.getId()));
+            Application.sender.sendMessage(new CreateChatRoomRequest(chatRoomName, Application.me.getId()));
             frame.dispose();
 
-            new ChatFrame(chatName);
+            ChatFrame chatFrame = new ChatFrame(chatRoomName);
+            Application.chatPanelMap.put(chatRoomName, chatFrame.chatPanel); // 채팅방 화면 관리
+            Application.chatRoomUserListPanelMap.put(chatRoomName, chatFrame.chatRoomUserListPanel);
         }
     }
 

@@ -1,7 +1,7 @@
 package dto.response;
 
 import domain.ChatRoom;
-import dto.type.MessageType;
+import dto.type.DtoType;
 
 import java.util.Map;
 
@@ -10,7 +10,7 @@ public class ChatListDto extends DTO {
     Map<String, ChatRoom> chatMap;
 
     public ChatListDto(Map<String, ChatRoom> chatMap) {
-        super(MessageType.CHAT_LIST);
+        super(DtoType.CHAT_LIST);
 
         this.chatMap = chatMap;
     }

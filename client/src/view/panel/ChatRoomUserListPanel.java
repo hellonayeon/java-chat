@@ -1,17 +1,12 @@
 package view.panel;
 
 import domain.User;
-import dto.response.ChatRoomUserListDto;
-import dto.response.UserListDto;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ChatRoomUserListPanel extends JPanel {
-
-    List<User> chatUsers = new ArrayList<>(); // 현재 채팅방에 접속한 사용자
 
     JPanel labelPanel = new JPanel();
 
@@ -34,7 +29,7 @@ public class ChatRoomUserListPanel extends JPanel {
         setBounds(410, 10, 400, 200);
     }
 
-    public void addChatUserLabel(List<User> chatUsers) {
+    public void paintChatUsers(List<User> chatUsers) {
         labelPanel.removeAll();
 
         for (User user : chatUsers) {

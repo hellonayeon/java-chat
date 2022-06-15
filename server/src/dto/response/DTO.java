@@ -1,15 +1,15 @@
 package dto.response;
 
-import dto.type.MessageType;
+import dto.type.DtoType;
 
 public abstract class DTO {
-    MessageType type;
+    DtoType type;
 
-    public DTO(MessageType type) {
+    public DTO(DtoType type) {
         this.type = type;
     }
 
-    public MessageType getType() {
+    public DtoType getType() {
         return type;
     }
 

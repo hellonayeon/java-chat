@@ -1,7 +1,8 @@
 package view.panel;
 
 import app.Application;
-import dto.request.SendMessageDto;
+import dto.request.MessageRequest;
+import dto.type.MessageType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,6 +11,8 @@ import java.awt.event.ActionListener;
 
 public class ChatPanel extends JPanel implements ActionListener {
 
+    String chatRoomName;
+
     JTextArea chatTextA = new JTextArea();
 
     JTextField msgTextF = new JTextField();
@@ -17,8 +20,10 @@ public class ChatPanel extends JPanel implements ActionListener {
     JButton sendBtn = new JButton("전송");
 
 
-    public ChatPanel(JFrame frame) {
+    public ChatPanel(JFrame frame, String chatRoomName) {
         setLayout(null);
+
+        this.chatRoomName = chatRoomName;
 
         // 채팅 메시지 영역 (스크롤)
         JScrollPane scrPane = new JScrollPane(chatTextA);
@@ -41,8 +46,19 @@ public class ChatPanel extends JPanel implements ActionListener {
         setBounds(10, 10, 400, 500);
     }
 
-    public void addMessage(String message) {
-        chatTextA.append(message + "\n");
+    public void addMessage(MessageType messageType, String userName, String message) {
+        String msg = "";
+        switch (messageType) {
+            case ENTER:
+            case EXIT:
+                msg = message;
+                break;
+            case CHAT:
+                msg = "[" + userName + "] 님이 보낸 메시지: " + message;
+                break;
+
+        }
+        chatTextA.append(msg + "\n");
     }
 
     @Override
@@ -51,8 +67,8 @@ public class ChatPanel extends JPanel implements ActionListener {
 
         if (!message.isEmpty()) {
             Application.sender
-                    .sendMessage(new SendMessageDto(Application.curChatRoomId, Application.me.getId(), message));
-            chatTextA.append(message + "\n");
+                    .sendMessage(new MessageRequest(MessageType.CHAT, chatRoomName, Application.me.getName(), message));
+            chatTextA.append("내가 보낸 메시지: " + message + "\n");
         }
         msgTextF.setText("");
     }

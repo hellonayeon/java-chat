@@ -1,11 +1,20 @@
 package thread;
 
 import app.Application;
+import dao.ChatDao;
 import domain.ChatRoom;
-import dto.response.*;
-import dto.request.*;
-import dto.type.MessageType;
 import domain.User;
+import dto.request.CreateChatRoomRequest;
+import dto.request.EnterChatRequest;
+import dto.request.ExitChatRequest;
+import dto.request.LoginRequest;
+import dto.response.MessageResponse;
+import dto.response.CreateChatRoomResponse;
+import dto.response.DTO;
+import dto.response.InitDataResponse;
+import dto.response.UserListResponse;
+import dto.type.DtoType;
+import dto.type.MessageType;
 import service.ChatService;
 
 import java.io.BufferedReader;
@@ -14,7 +23,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.List;
-import java.util.Map;
 
 public class ServerThread extends Thread {
 
@@ -35,11 +43,15 @@ public class ServerThread extends Thread {
             while (true) {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 String str = reader.readLine();
+                if (str == null) {
+                    System.out.println("socket error (can't get socket input stream) - client socket closed");
+                    System.exit(1);
+                }
 
                 System.out.println(str);
 
                 String[] token = str.split(":");
-                MessageType type = MessageType.valueOf(token[0]);
+                DtoType type = DtoType.valueOf(token[0]);
                 String message = token[1];
 
                 processReceiveMessage(type, message);
@@ -51,87 +63,107 @@ public class ServerThread extends Thread {
         }
     }
 
-    private void processReceiveMessage(MessageType type, String message) {
+    private void processReceiveMessage(DtoType type, String message) {
         switch (type) {
             case LOGIN:
                 // 사용자 추가
-                LoginUserDto loginUserDto = new LoginUserDto(message);
-                User user = new User(socket, loginUserDto);
-                chatService.login(user);
-                chatService.enterLobby(user);
+                LoginRequest loginReq = new LoginRequest(message);
+                User user = new User(socket, loginReq);
+                chatService.addUser(user);
+                chatService.enterLobby(user); // 처음 채팅방에 들어가면 로비로
 
-                // 입장 메시지 전송
-                ChatRoom lobby = chatService.getLobby();
-                SendMessageDto enterMessageDto = new SendMessageDto(lobby.getId(), user.getId(), user.getEnterString());
-                sendMessage(enterMessageDto);
+                // [to 채팅방에 있는 다른 사용자] 입장 메시지 전송
+                MessageResponse lobbyEnterMessageRes = new MessageResponse(MessageType.ENTER, ChatDao.LOBBY_CHAT_NAME, user.getName(), user.getEnterString());
+                sendMessage(lobbyEnterMessageRes);
 
 
-                // 초기 데이터 전송 (전체 사용자 리스트, 채팅방 리스트)
-                Map<String, ChatRoom> chatMap = chatService.getChatMap();
+                // [to 로그인 사용자] 초기 데이터 전송 (전체 사용자 리스트, 채팅방 리스트)
+                List<ChatRoom> chatRooms = chatService.getChatRooms();
                 List<User> users = chatService.getUsers();
-                String lobbyRoomId = chatService.getLobby().getId();
 
-                InitDataDto initDataDto = new InitDataDto(chatMap, users, lobbyRoomId);
-                sendMessage(initDataDto);
+                InitDataResponse initRes = new InitDataResponse(chatRooms, users);
+                sendMessage(initRes);
 
-
-                // 사용자 리스트 전송
-                UserListDto userListDto = new UserListDto(chatService.getUsers());
-                sendMessage(userListDto);
+                // [to 채팅방에 있는 다른 사용자] 사용자 리스트 전송
+                UserListResponse userListRes = new UserListResponse(ChatDao.LOBBY_CHAT_NAME, chatService.getUsers());
+                sendMessage(userListRes);
                 break;
+
+            case MESSAGE:
+                // [to 채팅방에 있는 다른 사용자] 메시지 전송
+                MessageResponse messageResponse = new MessageResponse(message);
+                sendMessage(messageResponse);
+                break;
+
             case CREATE_CHAT:
-                CreateChatRoomDto createChatRoomDto = new CreateChatRoomDto(message);
+                CreateChatRoomRequest createChatRoomReq = new CreateChatRoomRequest(message);
 
-                ChatRoom chatRoom = chatService.createChatRoom(createChatRoomDto);
-                User chatUser = chatService.getUser(createChatRoomDto.getUserId());
-                chatRoom.addUser(chatUser); // socket 관리
+                ChatRoom chatRoom = chatService.createChatRoom(createChatRoomReq.getName(), createChatRoomReq.getUserId());
+                chatService.enterChatRoom(chatRoom.getName(), createChatRoomReq.getUserId());
 
-                // 채팅방 리스트 전송
-//                ChatListDto chatListDto = new ChatListDto(chatService.getChatMap());
-//                sendMessage(chatListDto);
+                // 새로 생성된 방 정보 전송
+                CreateChatRoomResponse createChatRoomRes = new CreateChatRoomResponse(chatRoom);
+                sendMessage(createChatRoomRes);
 
-                CreateChatRoomResponse createChatRoomResponse = new CreateChatRoomResponse(chatRoom);
-                sendMessage(createChatRoomResponse);
+                // [to 채팅방에 있는 모든 사용자 (나 자신 포함)] 사용자 리스트 전송
+                UserListResponse chatRoomUserListRes = new UserListResponse(chatRoom.getName(), chatService.getChatRoomUsers(chatRoom.getName()));
+                sendMessage(chatRoomUserListRes);
                 break;
+
             case ENTER_CHAT:
-                // TODO 현재 채팅방 설정
-                chatService.enterChatRoom(new EnterChatDto(message));
+                // 서버에 채팅방에 들어온 사용자 설정
+                EnterChatRequest enterChatReq = new EnterChatRequest(message);
+                String enterChatRoomName = enterChatReq.getChatRoomName();
+                String userId = enterChatReq.getUserId();
+                chatService.enterChatRoom(enterChatRoomName, userId);
+
+                // [to 채팅방에 있는 다른 사용자] 입장 메시지 전송
+                User enterUser = chatService.getUser(userId);
+                MessageResponse enterChatRoomEnterMessageRes = new MessageResponse(MessageType.ENTER, enterChatRoomName, enterUser.getName(), enterUser.getEnterString());
+                sendMessage(enterChatRoomEnterMessageRes);
+
+                // [to 채팅방에 있는 모든 사용자 (나 자신 포함)] 사용자 리스트 전송
+                UserListResponse enterChatRoomUserListRes = new UserListResponse(enterChatRoomName, chatService.getChatRoomUsers(enterChatRoomName));
+                sendMessage(enterChatRoomUserListRes);
+
                 break;
             case EXIT_CHAT:
-                ExitChatDto exitChatDto = new ExitChatDto(message);
-                User exitUser = chatService.exitChatRoom(exitChatDto.getChatRoomId(), exitChatDto.getUserId());
-                chatService.enterLobby(exitUser);
+                ExitChatRequest exitChatReq = new ExitChatRequest(message);
+                String exitChatRoomName = exitChatReq.getChatRoomName();
+                User exitUser = chatService.exitChatRoom(exitChatReq.getChatRoomName(), exitChatReq.getUserId());
+
+                // [to 채팅방에 있는 다른 사용자] 퇴장 메시지 전송
+                MessageResponse chatRoomExitMessageRes = new MessageResponse(MessageType.EXIT, exitChatReq.getChatRoomName(), exitUser.getName(), exitUser.getExitString());
+                sendMessage(chatRoomExitMessageRes);
+
+                // [to 채팅방에 있는 모든 사용자 (나 자신 포함)] 사용자 리스트 전송
+                UserListResponse exitChatRoomUserListRes = new UserListResponse(exitChatRoomName, chatService.getChatRoomUsers(exitChatRoomName));
+                sendMessage(exitChatRoomUserListRes);
                 break;
-            case SEND_MESSAGE:
-                // 채팅방 사용자들에게 메시지 전송
-                SendMessageDto sendMessageDto = new SendMessageDto(message);
-                sendMessage(sendMessageDto);
-                break;
+
         }
     }
 
     private void sendMessage(DTO dto) {
-        MessageType type = dto.getType();
+        DtoType type = dto.getType();
 
         try {
             PrintWriter sender = null;
             switch (type) {
                 case LOGIN:
-                    InitDataDto initDataDto = (InitDataDto) dto;
+                    InitDataResponse initDataResponse = (InitDataResponse) dto;
 
                     // 로그인 한 자신에게만 전송
                     sender = new PrintWriter(socket.getOutputStream());
-                    sender.println(initDataDto);
+                    sender.println(initDataResponse);
                     sender.flush();
                     break;
-                case SEND_MESSAGE:
-                    SendMessageDto sendMessageDto = (SendMessageDto) dto;
 
-                    String chatRoomId = sendMessageDto.getChatRoomId();
-                    if (chatRoomId.equals("null")) {
-                        chatRoomId = chatService.getLobby().getId();
-                    }
-                    ChatRoom chatRoom = chatService.getChatRoom(chatRoomId);
+                    // 채팅방에 표시되는 메시지 전송 (입장 메시지, 대화 메시지)
+                case MESSAGE:
+                    MessageResponse messageReq = (MessageResponse) dto;
+
+                    ChatRoom chatRoom = chatService.getChatRoom(messageReq.getChatRoomName());
                     List<User> chatUsers = chatRoom.getUsers();
 
                     // 나를 제외한 사용자에게 모두 출력
@@ -139,17 +171,21 @@ public class ServerThread extends Thread {
                         Socket s = user.getSocket();
                         if (s != socket) {
                             sender = new PrintWriter(s.getOutputStream());
-                            sender.println(sendMessageDto);
+                            sender.println(messageReq);
                             sender.flush();
                         }
                     }
                     break;
-                case USER_LIST:
-                    UserListDto userListDto = (UserListDto) dto;
 
-                    for (Socket s : Application.sockets) {
+                case USER_LIST:
+                    // 사용자 리스트 추가
+                    // dto 에 담긴 사용자 리스트에 따라 추가
+                    UserListResponse userListRes = (UserListResponse) dto;
+
+                    for (User user : userListRes.getUsers()) {
+                        Socket s = user.getSocket();
                         sender = new PrintWriter(s.getOutputStream());
-                        sender.println(userListDto);
+                        sender.println(userListRes);
                         sender.flush();
                     }
                     break;
@@ -162,11 +198,6 @@ public class ServerThread extends Thread {
                         sender.println(createChatRoomResponse);
                         sender.flush();
                     }
-                    break;
-                case CHAT_ROOM_USER_LIST:
-
-                    break;
-                case CHAT_LIST:
                     break;
             }
         }

@@ -1,7 +1,7 @@
 package dto.response;
 
 import domain.User;
-import dto.type.MessageType;
+import dto.type.DtoType;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public class ChatRoomUserListDto extends DTO {
     List<User> users;
 
     public ChatRoomUserListDto(String chatRoomId, List<User> users) {
-        super(MessageType.USER_LIST);
+        super(DtoType.USER_LIST);
 
         this.chatRoomId = chatRoomId;
         this.users = users;

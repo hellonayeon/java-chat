@@ -8,7 +8,7 @@
 
 * [개발 환경 및 사용 기술](#개발-환경-및-사용-기술)
 * [실행화면과 기능설명](#실행화면과-기능설명)
-* [구현방식](#구현방식)
+* [구현 방식](#구현-방식)
 * [서버 애플리케이션](#서버-애플리케이션)
 * [클라이언트 애플리케이션](#클라이언트-애플리케이션)
 
@@ -36,10 +36,11 @@
   * `사용자 아이디`: 프로그램 내부에서 사용자를 식별하는 데이터
   * `이름`: 사용자 목록과 채팅을 입력한 사람을 표시하는 데이터
 
-  
-
-  ![로그인-화면](/image/login-frame.png)
-
+  <br>
+  <p align="center">
+     <img src="/image/login-frame.png" width="600" align="center">
+  </p>
+  <br>
 
 
 * 로비 화면 
@@ -47,12 +48,11 @@
   * 채팅 프로그램에 접속한 모든 사용자 리스트 출력
   * 채팅방 목록 출력
 
-![로비-화면](/image/lobby-frame.png)
-
-
-
-![image-20220616142307759](/Users/nayeon/Library/Application Support/typora-user-images/image-20220616142307759.png)
-
+<br>
+  <p align="center">
+     <img src="/image/lobby-frame.png" width="800" align="center">
+  </p>
+<br>
 
 
 * 채팅방 생성 화면
@@ -63,69 +63,75 @@
 
     * 새로운 채팅 화면 출력
 
+     <br>
+       <p align="center">
+          <img src="/image/create-chat-frame.png" width="600" align="center">
+       </p>
+     <br>
       
 
-      <img src="/Users/nayeon/Library/Application Support/typora-user-images/image-20220616142513760.png" alt="image-20220616142513760" style="zoom:33%;" />
+    * 생성된 채팅방 목록들은 로비에서 확인 가능
 
-      
 
-      <img src="/Users/nayeon/Library/Application Support/typora-user-images/image-20220616142721906.png" alt="image-20220616142721906" style="zoom:33%;" />
-
-      
-
-      
-
-  * 생성된 채팅방 목록들은 로비에서 확인 가능
-
+      <br>
+        <p align="center">
+           <img src="/image/chat-room-list.png" width="600" align="center">
+        </p>
+      <br>
     
 
-    <img src="/Users/nayeon/Library/Application Support/typora-user-images/image-20220616142841445.png" alt="image-20220616142841445" style="zoom:33%;" />
+    * 채팅방 목록에서 `채팅방 이름 클릭` 하면, 해당 채팅 화면 출력
 
-    
 
-  * 채팅방 목록에서 `채팅방 이름 클릭` 하면, 해당 채팅 화면 출력
-
-    
-
-    <img src="/Users/nayeon/Library/Application Support/typora-user-images/image-20220616143244921.png" alt="image-20220616143244921" style="zoom:30%;" />
-
+     <br>
+       <p align="center">
+          <img src="/image/click-chat-room-name.png" width="600" align="center">
+       </p>
+     <br>    
 
 
 * 채팅방 화면
 
   * 해당 채팅방에 접속한 사용자 목록 출력
 
-  
 
-  ​		![image-20220616143511733](/Users/nayeon/Library/Application Support/typora-user-images/image-20220616143511733.png)
+   <br>
+     <p align="center">
+        <img src="/image/chat-room-chat.png" width="800" align="center">
+     </p>
+   <br>
 
   
 
   * `나가기 버튼 클릭` 하면 채팅창에 퇴장 메시지 출력되고, 사용자 목록 갱신
 
   
-
-  <img src="/Users/nayeon/Library/Application Support/typora-user-images/image-20220616143704810.png" alt="image-20220616143704810" style="zoom:33%;" />
-
+   <br>
+     <p align="center">
+        <img src="/image/exit-btn-click.png" width="600" align="center">
+     </p>
+   <br>
   
 
   * 모든 사용자가 채팅방에서 나간 경우, 채팅방 이름을 로비의 채팅 목록에서 제거
 
     * `채팅방 이름1` 목록에서 제거
 
-      
-
-      <img src="/Users/nayeon/Library/Application Support/typora-user-images/image-20220616151148085.png" alt="image-20220616151148085" style="zoom:35%;" />
-
+<br>
+  <p align="center">
+     <img src="/image/remove-chat-room-name.png" width="600" align="center">
+  </p>
+<br>
     
 
   * 이미 열려있는 채팅방을 다시 들어가려 할 경우 오류 팝업 출력
 
-    
 
-    <img src="/Users/nayeon/Library/Application Support/typora-user-images/image-20220616151418480.png" alt="image-20220616151418480" style="zoom:30%;" />
-
-
+<br>
+  <p align="center">
+     <img src="/image/chat-room-reopen-error.png" width="600" align="center">
+  </p>
+<br>
 
 
 
@@ -164,15 +170,16 @@
 
     * 흐름도
 
-      
 
-      <img src="/Users/nayeon/Library/Application Support/typora-user-images/image-20220616172059971.png" alt="image-20220616172059971" style="zoom:20%;" />
+     <br>
+       <p align="center">
+          <img src="/image/string-object-parse.png" width="600" align="center">
+       </p>
+     <br>
 
-    ​		
 
     * 파싱 데이터 테이블
 
-      
 
       `DtoType:data` 형식의 문자열로 메시지 송수신
 
@@ -196,6 +203,7 @@
     
 
     * `DtoType` 에 따라 메시지 송수신부에서 분기 처리
+    
 
       ```java
       class enum DtoType {
@@ -330,12 +338,6 @@
 
 
 
-
-
-
-
-
-
 ## 서버 애플리케이션
 
 * 클래스 멤버
@@ -428,34 +430,43 @@
   * 클래스 다이어그램
 
     
-
-    ![image-20220616162626540](/Users/nayeon/Library/Application Support/typora-user-images/image-20220616162626540.png)
-
+<br>
+  <p align="center">
+     <img src="/image/server-class-flow.png" width="1000" align="center">
+  </p>
+<br>
     
 
   * 인스턴스 다이어그램
 
     * 클라이언트 소켓 연결
 
-      
 
-      <img src="/Users/nayeon/Library/Application Support/typora-user-images/image-20220616163541221.png" alt="image-20220616163541221" style="zoom:33%;" />
+      <br>
+        <p align="center">
+           <img src="/image/client-socket-connect.png" width="600" align="center">
+        </p>
+      <br>
 
-    
 
     * 사용자 정보 생성 (아이디, 이름 입력 후)
 
-      
 
-      <img src="/Users/nayeon/Library/Application Support/typora-user-images/image-20220616163703764.png" alt="image-20220616163703764" style="zoom:33%;" />
+      <br>
+        <p align="center">
+           <img src="/image/create-user.png" width="600" align="center">
+        </p>
+      <br>
 
     
 
     * 새로운 채팅방 생성
 
-      
-
-      <img src="/Users/nayeon/Library/Application Support/typora-user-images/image-20220616163951713.png" alt="image-20220616163951713" style="zoom:33%;" />
+      <br>
+        <p align="center">
+           <img src="/image/create-chat-room.png" width="600" align="center">
+        </p>
+      <br>
 
       
 
@@ -516,9 +527,11 @@
 
 * 화면 프레임
 
-  
-
-  ![image-20220616171149259](/Users/nayeon/Library/Application Support/typora-user-images/image-20220616171149259.png)
+<br>
+  <p align="center">
+     <img src="/image/client-view-frame.png" width="1000" align="center">
+  </p>
+<br>
 
 
 

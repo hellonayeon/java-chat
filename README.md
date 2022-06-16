@@ -75,12 +75,10 @@
     * 생성된 채팅방 목록들은 로비에서 확인 가능
     
       <br>
-    
           <p align="center">
              <img src="./image/chat-room-list.png" width="600" align="center">
           </p>
-    
-        <br>
+      <br>
     
     * 채팅방 목록에서 `채팅방 이름 클릭` 하면, 해당 채팅 화면 출력
     
@@ -88,7 +86,6 @@
          <p align="center">
             <img src="./image/click-chat-room-name.png" width="600" align="center">
          </p>
-    
        <br>     
 
 
@@ -97,12 +94,10 @@
   * 해당 채팅방에 접속한 사용자 목록 출력
   
     <br>
-  
-         <p align="center">
-            <img src="./image/chat-room-chat.png" width="800" align="center">
-         </p>
-  
-       <br>
+       <p align="center">
+          <img src="./image/chat-room-chat.png" width="800" align="center">
+       </p>
+    <br>
   
   *   `나가기 버튼 클릭` 하면 채팅창에 퇴장 메시지 출력되고, 사용자 목록 갱신
   
@@ -110,8 +105,7 @@
          <p align="center">
             <img src="./image/exit-btn-click.png" width="600" align="center">
          </p>
-  
-    ​      <br>
+       <br>
   
   
     * 모든 사용자가 채팅방에서 나간 경우, 채팅방 이름을 로비의 채팅 목록에서 제거
@@ -120,21 +114,17 @@
       * `채팅방 이름1` 목록에서 제거
       
           <br>
-      
             <p align="center">
                <img src="./image/remove-chat-room-name.png" width="600" align="center">
-            </p>
-      
+            </p>  
           <br>
       
     * 이미 열려있는 채팅방을 다시 들어가려 할 경우 오류 팝업 출력
   
       <br>
-  
         <p align="center">
            <img src="./image/chat-room-reopen-error.png" width="600" align="center">
         </p>
-  
       <br>
   
 
@@ -181,7 +171,6 @@
          <p align="center">
             <img src="./image/string-object-parse.png" width="600" align="center">
          </p>
-    
        <br>
     
     * 파싱 데이터 테이블
@@ -191,11 +180,9 @@
         `Request` 의 전송 주체는 `Client`,  `Response` 의 전송 주체는 `Server`
     
          <br>
-    
            <p align="center">
              <img src="./image/parse-data-table.png" width="1000" align="center">
            </p>
-    
          <br>
     
       
@@ -449,16 +436,14 @@
     * 사용자 정보 생성 (아이디, 이름 입력 후)
     
       <br>
-    
-      <p align="center">
-         <img src="./image/create-user.png" width="600" align="center">
-      </p>
-    
-        <br>
+        <p align="center">
+           <img src="./image/create-user.png" width="600" align="center">
+        </p>
+      <br>
     
     * 새로운 채팅방 생성
     
-      <br>
+       <br>
           <p align="center">
              <img src="./image/create-chat-room.png" width="600" align="center">
           </p>
@@ -526,7 +511,6 @@
   <p align="center">
      <img src="./image/client-view-frame.png" width="1000" align="center">
   </p>
-
 <br>
 
 

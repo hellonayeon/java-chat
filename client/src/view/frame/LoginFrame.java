@@ -23,7 +23,7 @@ public class LoginFrame extends JFrame implements ActionListener {
 
     JButton loginBtn = new JButton("로그인");
 
-    public LoginFrame(LobbyFrame lobbyFrame, MessageSender sender) {
+    public LoginFrame(LobbyFrame lobbyFrame) {
         this.lobbyFrame = lobbyFrame;
 
         // 로그인 프레임 설정
@@ -58,9 +58,15 @@ public class LoginFrame extends JFrame implements ActionListener {
 
         if (id.trim().isEmpty()) {
             System.out.println("아이디 공백");
+            JOptionPane.showMessageDialog(null,
+                    "user id is empty.", "Message", JOptionPane.ERROR_MESSAGE);
+            return;
         }
         if (name.trim().isEmpty()) {
             System.out.println("이름 입력");
+            JOptionPane.showMessageDialog(null,
+                    "user name is empty.", "Message", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         // TODO 아이디 이름 형식 검사

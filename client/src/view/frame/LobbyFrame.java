@@ -29,7 +29,7 @@ public class LobbyFrame extends JFrame implements WindowListener {
     public LobbyFrame() {
         super("Chat Chat");
 
-        new LoginFrame(this, sender);
+        new LoginFrame(this);
         createChatFrame = new CreateChatFrame();
 
         setLayout(null);

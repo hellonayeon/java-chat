@@ -20,20 +20,14 @@ public class ChatRoomListPanel extends JPanel {
         // 채팅 메시지 영역 (스크롤)
         labelPanel = new JPanel();
         labelPanel.setSize(400, 250);
-        labelPanel.setBackground(Color.MAGENTA);
         labelPanel.setLayout(new GridLayout(30, 1));
-        for (int i=0; i<30; i++) {
-            labelPanel.add(new JLabel("Hell" + i));
-        }
 
         JScrollPane scrPane = new JScrollPane(labelPanel);
         scrPane.setBounds(0, 0, 400, 250);
-        scrPane.setBackground(Color.MAGENTA);
         add(scrPane);
 
         frame.add(this);
 
-        setBackground(Color.BLUE);
         setBounds(410, 210, 400, 250);
     }
 
@@ -69,7 +63,8 @@ public class ChatRoomListPanel extends JPanel {
         @Override
         public void mouseClicked(MouseEvent e) {
             if (Application.chatPanelMap.containsKey(chatRoomName)) {
-                System.out.println("[" + chatRoomName + "] 채팅방 이미 열려있음");
+                JOptionPane.showMessageDialog(null,
+                        "chat room is already opened.", "Message", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 

@@ -26,6 +26,7 @@ public class ChatPanel extends JPanel implements ActionListener {
         this.chatRoomName = chatRoomName;
 
         // 채팅 메시지 영역 (스크롤)
+        chatTextA.setEditable(false);
         JScrollPane scrPane = new JScrollPane(chatTextA);
         scrPane.setBounds(10, 0, 380, 450);
         add(scrPane);
@@ -36,13 +37,11 @@ public class ChatPanel extends JPanel implements ActionListener {
         add(msgTextF);
 
         sendBtn.setBounds(270, 460, 120, 35);
-        sendBtn.setBackground(Color.GREEN);
         sendBtn.addActionListener(this);
         add(sendBtn);
 
         frame.add(this);
 
-        setBackground(Color.RED);
         setBounds(10, 10, 400, 500);
     }
 

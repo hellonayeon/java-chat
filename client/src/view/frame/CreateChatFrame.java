@@ -48,7 +48,8 @@ public class CreateChatFrame extends JFrame {
         public void actionPerformed(ActionEvent e) {
             String chatRoomName = chatNameTextF.getText();
             if (chatRoomName.isEmpty()) {
-                System.out.println("채팅방 이름 공백 불가능");
+                JOptionPane.showMessageDialog(null,
+                        "chat room name is not empty.", "Message", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -56,6 +57,7 @@ public class CreateChatFrame extends JFrame {
             frame.dispose();
 
             ChatFrame chatFrame = new ChatFrame(chatRoomName);
+
             Application.chatPanelMap.put(chatRoomName, chatFrame.chatPanel); // 채팅방 화면 관리
             Application.chatRoomUserListPanelMap.put(chatRoomName, chatFrame.chatRoomUserListPanel);
         }

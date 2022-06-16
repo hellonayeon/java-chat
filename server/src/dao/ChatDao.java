@@ -2,6 +2,7 @@ package dao;
 
 import domain.ChatRoom;
 import domain.User;
+import exception.ChatRoomNotFoundException;
 
 import java.net.Socket;
 import java.util.ArrayList;
@@ -39,40 +40,11 @@ public class ChatDao {
         chatRooms.add(chatRoom);
     }
 
-    public void addChatRoomUser(String chatRoomName, User user) {
-        Optional<ChatRoom> findChatRoom = chatRooms.stream()
-                .filter(chatRoom -> chatRoom.getName().equals(chatRoomName))
-                .findAny();
-
-        if (findChatRoom.isEmpty()) {
-            System.out.println("[" + chatRoomName  + "] 이름의 채팅방 없음");
-        }
-        else {
-            findChatRoom.get().addUser(user);
-        }
-    }
-
-    public void removeChatRoomUser(String chatRoomName, User user) {
-        Optional<ChatRoom> findChatRoom = chatRooms.stream()
-                .filter(chatRoom -> chatRoom.getName().equals(chatRoomName))
-                .findAny();
-
-        if (findChatRoom.isEmpty()) {
-            System.out.println("[" + chatRoomName  + "] 이름의 채팅방 없음");
-        }
-        else {
-            // TODO 사용자 존재 체크
-            List<User> users = findChatRoom.get().getUsers();
-            users.remove(user);
-        }
-    }
-
     public Optional<User> findUserById(String id) {
         return users.stream().filter(user -> user.getId().equals(id)).findAny();
     }
 
     public Optional<ChatRoom> findChatRoomByName(String name) {
-        // TODO 예외처리 - 채팅방이 없는 경우 (Service 단에서 체크)
         return chatRooms.stream()
                 .filter(chatRoom -> chatRoom.getName().equals(name))
                 .findAny();
@@ -84,6 +56,14 @@ public class ChatDao {
 
     public List<User> getUsers() {
         return users;
+    }
+
+    public Optional<User> getUser(String userId) {
+        return users.stream().filter(user -> user.getId().equals(userId)).findAny();
+    }
+
+    public List<Socket> getSockets() {
+        return sockets;
     }
 
     public List<ChatRoom> getChatRooms() { return chatRooms; }

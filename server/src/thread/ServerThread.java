@@ -4,17 +4,13 @@ import app.Application;
 import dao.ChatDao;
 import domain.ChatRoom;
 import domain.User;
-import dto.request.CreateChatRoomRequest;
-import dto.request.EnterChatRequest;
-import dto.request.ExitChatRequest;
-import dto.request.LoginRequest;
-import dto.response.MessageResponse;
-import dto.response.CreateChatRoomResponse;
-import dto.response.DTO;
-import dto.response.InitDataResponse;
-import dto.response.UserListResponse;
+import dto.request.*;
+import dto.response.*;
 import dto.type.DtoType;
 import dto.type.MessageType;
+import exception.ChatRoomExistException;
+import exception.ChatRoomNotFoundException;
+import exception.UserNotFoundException;
 import service.ChatService;
 
 import java.io.BufferedReader;
@@ -48,8 +44,6 @@ public class ServerThread extends Thread {
                     System.exit(1);
                 }
 
-                System.out.println(str);
-
                 String[] token = str.split(":");
                 DtoType type = DtoType.valueOf(token[0]);
                 String message = token[1];
@@ -60,10 +54,12 @@ public class ServerThread extends Thread {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
-    private void processReceiveMessage(DtoType type, String message) {
+    private void processReceiveMessage(DtoType type, String message)
+            throws UserNotFoundException, ChatRoomNotFoundException, ChatRoomExistException, IOException {
         switch (type) {
             case LOGIN:
                 // 사용자 추가
@@ -129,16 +125,34 @@ public class ServerThread extends Thread {
                 break;
             case EXIT_CHAT:
                 ExitChatRequest exitChatReq = new ExitChatRequest(message);
-                String exitChatRoomName = exitChatReq.getChatRoomName();
+                ChatRoom exitChatRoom = chatService.getChatRoom(exitChatReq.getChatRoomName());
+                String exitChatRoomName = exitChatRoom.getName();
                 User exitUser = chatService.exitChatRoom(exitChatReq.getChatRoomName(), exitChatReq.getUserId());
 
-                // [to 채팅방에 있는 다른 사용자] 퇴장 메시지 전송
-                MessageResponse chatRoomExitMessageRes = new MessageResponse(MessageType.EXIT, exitChatReq.getChatRoomName(), exitUser.getName(), exitUser.getExitString());
-                sendMessage(chatRoomExitMessageRes);
+                if (exitChatRoom.ieExistUser()) {
+                    // [to 채팅방에 있는 다른 사용자] 퇴장 메시지 전송
+                    MessageResponse chatRoomExitMessageRes = new MessageResponse(MessageType.EXIT, exitChatReq.getChatRoomName(), exitUser.getName(), exitUser.getExitString());
+                    sendMessage(chatRoomExitMessageRes);
 
-                // [to 채팅방에 있는 모든 사용자 (나 자신 포함)] 사용자 리스트 전송
-                UserListResponse exitChatRoomUserListRes = new UserListResponse(exitChatRoomName, chatService.getChatRoomUsers(exitChatRoomName));
-                sendMessage(exitChatRoomUserListRes);
+                    // [to 채팅방에 있는 모든 사용자 (나 자신 포함)] 사용자 리스트 전송
+                    UserListResponse exitChatRoomUserListRes = new UserListResponse(exitChatRoomName, chatService.getChatRoomUsers(exitChatRoomName));
+                    sendMessage(exitChatRoomUserListRes);
+                }
+
+                // 채팅방에 더 이상 사용자가 없는 경우
+                // 채팅방 목록 갱신
+                else {
+                    ChatRoomListResponse chatRoomListRes = new ChatRoomListResponse(chatService.getChatRooms());
+                    sendMessage(chatRoomListRes);
+                }
+
+                break;
+
+            case PROGRAM_EXIT:
+                ProgramExitRequest programExitReq = new ProgramExitRequest(message);
+                String pExitUserId = programExitReq.getUserId();
+
+                chatService.disconnect(pExitUserId);
                 break;
 
         }
@@ -196,6 +210,16 @@ public class ServerThread extends Thread {
                     for (Socket s : Application.sockets) {
                         sender = new PrintWriter(s.getOutputStream());
                         sender.println(createChatRoomResponse);
+                        sender.flush();
+                    }
+                    break;
+
+                case CHAT_ROOM_LIST:
+                    ChatRoomListResponse chatRoomListResponse = (ChatRoomListResponse) dto;
+
+                    for (Socket s : Application.sockets) {
+                        sender = new PrintWriter(s.getOutputStream());
+                        sender.println(chatRoomListResponse);
                         sender.flush();
                     }
                     break;

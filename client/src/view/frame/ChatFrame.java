@@ -1,12 +1,16 @@
 package view.frame;
 
+import app.Application;
+import dto.request.ExitChatRequest;
 import view.panel.ChatPanel;
 import view.panel.ChatRoomUserListPanel;
 import view.panel.MenuPanel;
 
 import javax.swing.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
-public class ChatFrame extends JFrame {
+public class ChatFrame extends JFrame implements WindowListener {
 
     String chatRoomName;
 
@@ -28,6 +32,8 @@ public class ChatFrame extends JFrame {
         menuPanel = new MenuPanel(this, chatRoomName);
         menuPanel.setExitBtnVisible(true);
 
+        addWindowListener(this);
+
         setVisible(true);
     }
 
@@ -37,4 +43,38 @@ public class ChatFrame extends JFrame {
 
     public ChatRoomUserListPanel getChatRoomUserListPanel() { return chatRoomUserListPanel; }
 
+    @Override
+    public void windowOpened(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+
+    }
 }

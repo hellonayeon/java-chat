@@ -10,9 +10,11 @@ public class ChatRoomListResponse {
     List<ChatRoom> chatRooms = new ArrayList<>();
 
     public ChatRoomListResponse(String message) {
-        String[] names = message.split("\\|");
-        for(String name : names) {
-            chatRooms.add(new ChatRoom(name));
+        if (!message.equals("empty")) {
+            String[] names = message.split(",");
+            for(String name : names) {
+                chatRooms.add(new ChatRoom(name));
+            }
         }
     }
 

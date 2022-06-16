@@ -15,17 +15,14 @@ public class ChatRoomUserListPanel extends JPanel {
 
         // 채팅 메시지 영역 (스크롤)
         labelPanel.setSize(400, 200);
-        labelPanel.setBackground(Color.MAGENTA);
         labelPanel.setLayout(new GridLayout(50, 1));
 
         JScrollPane scrPane = new JScrollPane(labelPanel);
         scrPane.setBounds(0, 0, 400, 200);
-        scrPane.setBackground(Color.MAGENTA);
         add(scrPane);
 
         frame.add(this);
 
-        setBackground(Color.GREEN);
         setBounds(410, 10, 400, 200);
     }
 

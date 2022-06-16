@@ -1,6 +1,7 @@
 package view.frame;
 
 import app.Application;
+import dto.request.ExitChatRequest;
 import network.MessageSender;
 import view.panel.ChatPanel;
 import view.panel.ChatRoomListPanel;
@@ -40,6 +41,8 @@ public class LobbyFrame extends JFrame implements WindowListener {
         menuPanel = new MenuPanel(this, Application.LOBBY_CHAT_NAME);
         menuPanel.setCreateChatBtnVisible(true);
 
+        this.addWindowListener(this);
+
         setVisible(false);
     }
 
@@ -58,7 +61,7 @@ public class LobbyFrame extends JFrame implements WindowListener {
 
     @Override
     public void windowClosing(WindowEvent e) {
-        System.out.println("window closing");
+
     }
 
     @Override
@@ -84,5 +87,19 @@ public class LobbyFrame extends JFrame implements WindowListener {
     @Override
     public void windowDeactivated(WindowEvent e) {
         System.out.println("window deactivated");
+//
+//        /* 로비 화면이 닫히면 채팅방 나가기 처리 */
+//
+//        // 열려있는 채팅창 나가기
+//        for (String chatRoomName : Application.chatFrameMap.keySet()) {
+//            ChatFrame chatFrame = Application.chatFrameMap.get(chatRoomName);
+//            chatFrame.dispose();
+//        }
+//
+//        Application.chatPanelMap.remove(Application.LOBBY_CHAT_NAME);
+//        Application.chatRoomUserListPanelMap.remove(Application.LOBBY_CHAT_NAME);
+//
+//        Application.sender.sendMessage(new ExitChatRequest(Application.LOBBY_CHAT_NAME, Application.me.getId()));
+//        Application.closeSocket();
     }
 }

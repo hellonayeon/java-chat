@@ -2,9 +2,12 @@ package dto.type;
 
 public enum DtoType {
     LOGIN,
-    CREATE_CHAT, CREATE_CHAT_SUCEESS,
+
+    CREATE_CHAT,
     ENTER_CHAT, EXIT_CHAT,
     MESSAGE,
 
-    USER_LIST, CHAT_ROOM_USER_LIST, CHAT_LIST
+    USER_LIST, CHAT_ROOM_LIST,
+
+    PROGRAM_EXIT
 }

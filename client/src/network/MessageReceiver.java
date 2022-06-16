@@ -28,10 +28,17 @@ public class MessageReceiver extends Thread {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 String str = reader.readLine();
                 if (str == null) {
+                    try {
+                        socket.close();
+                        System.out.println(Application.me.getName() + "'s socket is closed.");
+                    } catch(Exception e) {
+                        e.printStackTrace();
+                    }
+
                     System.out.println("disconnect");
                     System.exit(1);
                 }
-
+                System.out.println(str);
                 String[] token = str.split(":");
                 DtoType type = DtoType.valueOf(token[0]);
                 String message = token[1];
@@ -83,10 +90,13 @@ public class MessageReceiver extends Thread {
 
             case USER_LIST:
                 UserListResponse userListRes = new UserListResponse(message);
-                System.out.println(userListRes.getChatRoomName());
-                System.out.println(Application.chatRoomUserListPanelMap.get(userListRes.getChatRoomName()));
-                System.out.println(Application.chatRoomUserListPanelMap.get(userListRes.getUsers()));
                 Application.chatRoomUserListPanelMap.get(userListRes.getChatRoomName()).paintChatUsers(userListRes.getUsers()); // 갱신된 채팅방 사용자 리스트 설정
+                break;
+
+            case CHAT_ROOM_LIST:
+                ChatRoomListResponse chatRoomListRes = new ChatRoomListResponse(message);
+                Application.chatRooms = chatRoomListRes.getChatRooms();
+                LobbyFrame.chatRoomListPanel.paintChatRoomList();
                 break;
         }
     }

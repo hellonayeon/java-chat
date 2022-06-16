@@ -38,10 +38,11 @@ public class MenuPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("chat room exit btn clicked");
+                System.out.println("chat room = [" + chatRoomName + "] chat frame closed.");
 
+                // 채팅창이 닫히면 사용자 나가기 처리
                 Application.chatPanelMap.remove(chatRoomName);
                 Application.chatRoomUserListPanelMap.remove(chatRoomName);
-
                 Application.sender.sendMessage(new ExitChatRequest(chatRoomName, Application.me.getId()));
 
                 frame.dispose(); // 채팅 화면 닫기
@@ -52,7 +53,6 @@ public class MenuPanel extends JPanel {
 
         frame.add(this);
 
-        setBackground(Color.GRAY);
         setBounds(410, 460, 400, 50);
         setVisible(true);
     }

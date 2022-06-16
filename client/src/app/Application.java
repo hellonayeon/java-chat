@@ -4,10 +4,12 @@ import domain.ChatRoom;
 import domain.User;
 import network.MessageReceiver;
 import network.MessageSender;
+import view.frame.ChatFrame;
 import view.frame.LobbyFrame;
 import view.panel.ChatPanel;
 import view.panel.ChatRoomUserListPanel;
 
+import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,7 +18,7 @@ import java.util.Map;
 
 public class Application {
 
-    Socket socket;
+    public static Socket socket;
 
     public static MessageSender sender;
 
@@ -39,7 +41,7 @@ public class Application {
     public Application() {
         try {
             // 애플리케이션 시작 시 소켓 연결
-            socket = new Socket("192.168.0.6", 9000);
+            socket = new Socket("192.168.0.99", 9000);
             System.out.println("connect success to chat server");
 
             sender = new MessageSender(socket);
@@ -56,4 +58,12 @@ public class Application {
         }
     }
 
+    public static void closeSocket() {
+        try {
+            socket.close();
+            System.out.println("client application socket close.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

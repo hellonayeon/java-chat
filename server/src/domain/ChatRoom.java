@@ -2,7 +2,6 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class ChatRoom {
 
@@ -19,7 +18,16 @@ public class ChatRoom {
         users.add(user);
     }
 
-    public void removeUser(User user) { users.remove(user); }
+    public void removeUser(User user) {
+        try {
+            users.remove(user);
+        }
+        catch (Exception e) {
+            System.out.println("user = [" + user + "] is not exist in chat room = [" + name + "]" );
+            System.out.println(e.getMessage());
+        }
+
+    }
 
     public String getName() {
         return name;
@@ -27,5 +35,9 @@ public class ChatRoom {
 
     public List<User> getUsers() {
         return users;
+    }
+
+    public boolean ieExistUser() {
+        return users.size() != 0;
     }
 }

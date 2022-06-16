@@ -12,18 +12,21 @@ import java.awt.event.MouseEvent;
 
 public class ChatRoomListPanel extends JPanel {
 
-    JPanel labelPanel;
+    JPanel labelPanel = new JPanel();
+
+    JLabel label = new JLabel("채팅방 목록 (채팅방 이름 클릭 시 채팅방으로 이동)");
 
     public ChatRoomListPanel(JFrame frame) {
         setLayout(null);
 
-        // 채팅 메시지 영역 (스크롤)
-        labelPanel = new JPanel();
-        labelPanel.setSize(400, 250);
+        label.setBounds(0, 0, 400, 50);
+        add(label);
+
+        labelPanel.setSize(400, 200);
         labelPanel.setLayout(new GridLayout(30, 1));
 
         JScrollPane scrPane = new JScrollPane(labelPanel);
-        scrPane.setBounds(0, 0, 400, 250);
+        scrPane.setBounds(0, 50, 400, 200);
         add(scrPane);
 
         frame.add(this);

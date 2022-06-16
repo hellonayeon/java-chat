@@ -15,7 +15,7 @@ public class ChatPanel extends JPanel implements ActionListener {
 
     JTextArea chatTextA = new JTextArea();
 
-    JTextField msgTextF = new JTextField();
+    JTextField msgTextF = new JTextField(50);
 
     JButton sendBtn = new JButton("전송");
 

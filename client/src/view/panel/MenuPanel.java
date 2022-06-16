@@ -5,7 +5,6 @@ import dto.request.ExitChatRequest;
 import view.frame.LobbyFrame;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

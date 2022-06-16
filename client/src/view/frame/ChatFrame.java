@@ -1,7 +1,5 @@
 package view.frame;
 
-import app.Application;
-import dto.request.ExitChatRequest;
 import view.panel.ChatPanel;
 import view.panel.ChatRoomUserListPanel;
 import view.panel.MenuPanel;

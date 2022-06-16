@@ -1,7 +1,6 @@
 package view.frame;
 
 import app.Application;
-import dto.request.ExitChatRequest;
 import network.MessageSender;
 import view.panel.ChatPanel;
 import view.panel.ChatRoomListPanel;
@@ -13,8 +12,6 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 public class LobbyFrame extends JFrame implements WindowListener {
-
-    public static MessageSender sender;
 
     public static ChatPanel chatPanel;
 

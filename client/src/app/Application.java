@@ -4,12 +4,10 @@ import domain.ChatRoom;
 import domain.User;
 import network.MessageReceiver;
 import network.MessageSender;
-import view.frame.ChatFrame;
 import view.frame.LobbyFrame;
 import view.panel.ChatPanel;
 import view.panel.ChatRoomUserListPanel;
 
-import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;

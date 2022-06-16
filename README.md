@@ -1,8 +1,6 @@
 # 자바 채팅 프로그램
 
-`Java Swing` 환경의 텍스트 채팅 애플리케이션으로, `Socket` 통신과 `Multi Thread` 프로그래밍으로 구현한 프로그램 📌 [Github 주소](https://github.com/hellonayeon/java-chat-program)
-
-
+`Java Swing` 환경의 텍스트 채팅 애플리케이션으로, `Socket` 통신과 `Multi Thread` 프로그래밍으로 구현한 프로그램
 
 ## 목차
 

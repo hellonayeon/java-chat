@@ -27,11 +27,7 @@ public class Application {
             while (true) {
                 System.out.println("접속 대기중...");
                 clientSocket = serverSocket.accept();
-
-                chatService.connect(clientSocket);
                 System.out.println("client IP: " + clientSocket.getInetAddress() + " Port: " + clientSocket.getPort());
-
-
 
                 sockets.add(clientSocket);
 

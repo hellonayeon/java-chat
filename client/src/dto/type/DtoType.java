@@ -9,6 +9,4 @@ public enum DtoType {
     MESSAGE,
 
     USER_LIST, CHAT_ROOM_LIST,
-
-    PROGRAM_EXIT
 }

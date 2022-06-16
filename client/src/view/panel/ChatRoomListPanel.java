@@ -43,7 +43,8 @@ public class ChatRoomListPanel extends JPanel {
             labelPanel.add(label);
         }
 
-        revalidate();
+        labelPanel.revalidate();
+        labelPanel.repaint();
     }
 
     public void addChatRoomLabel(String chatRoomName) {
@@ -51,7 +52,8 @@ public class ChatRoomListPanel extends JPanel {
         label.addMouseListener(new ChatRoomMouseAdapter(chatRoomName));
         labelPanel.add(label);
 
-        revalidate();
+        labelPanel.revalidate();
+        labelPanel.repaint();
     }
 
     // 채팅방 레이블을 누르면, 해당 채팅방 접속

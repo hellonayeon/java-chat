@@ -57,13 +57,4 @@ public class Application {
             e.printStackTrace();
         }
     }
-
-    public static void closeSocket() {
-        try {
-            socket.close();
-            System.out.println("client application socket close.");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }

@@ -41,7 +41,17 @@ public class ServerThread extends Thread {
                 String str = reader.readLine();
                 if (str == null) {
                     System.out.println("socket error (can't get socket input stream) - client socket closed");
-                    System.exit(1);
+                    try {
+
+                        socket.close();
+                        System.out.println("socket closed.");
+
+                        Application.sockets.remove(socket);
+                        return;
+
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
                 }
 
                 String[] token = str.split(":");
@@ -147,14 +157,6 @@ public class ServerThread extends Thread {
                 }
 
                 break;
-
-            case PROGRAM_EXIT:
-                ProgramExitRequest programExitReq = new ProgramExitRequest(message);
-                String pExitUserId = programExitReq.getUserId();
-
-                chatService.disconnect(pExitUserId);
-                break;
-
         }
     }
 

@@ -87,19 +87,5 @@ public class LobbyFrame extends JFrame implements WindowListener {
     @Override
     public void windowDeactivated(WindowEvent e) {
         System.out.println("window deactivated");
-//
-//        /* 로비 화면이 닫히면 채팅방 나가기 처리 */
-//
-//        // 열려있는 채팅창 나가기
-//        for (String chatRoomName : Application.chatFrameMap.keySet()) {
-//            ChatFrame chatFrame = Application.chatFrameMap.get(chatRoomName);
-//            chatFrame.dispose();
-//        }
-//
-//        Application.chatPanelMap.remove(Application.LOBBY_CHAT_NAME);
-//        Application.chatRoomUserListPanelMap.remove(Application.LOBBY_CHAT_NAME);
-//
-//        Application.sender.sendMessage(new ExitChatRequest(Application.LOBBY_CHAT_NAME, Application.me.getId()));
-//        Application.closeSocket();
     }
 }

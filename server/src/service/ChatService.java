@@ -1,5 +1,6 @@
 package service;
 
+import app.Application;
 import dao.ChatDao;
 import domain.ChatRoom;
 import domain.User;
@@ -18,10 +19,6 @@ public class ChatService {
 
     public ChatService(ChatDao chatDao) {
         this.chatDao = chatDao;
-    }
-
-    public void connect(Socket socket) {
-        chatDao.addSocket(socket);
     }
 
     // 사용자 정보 추가
@@ -145,7 +142,7 @@ public class ChatService {
         users.remove(findUser.get());
 
         // 소켓 닫기 및 소켓 리스트에서 제거
-        List<Socket> sockets = chatDao.getSockets();
+        List<Socket> sockets = Application.sockets;
         Socket clientSocket = findUser.get().getSocket();
         clientSocket.close();
         sockets.remove(findUser.get().getSocket());

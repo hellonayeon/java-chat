@@ -2,19 +2,14 @@ package dao;
 
 import domain.ChatRoom;
 import domain.User;
-import exception.ChatRoomNotFoundException;
 
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Vector;
 
 public class ChatDao {
 
-    private Vector<Socket> sockets = new Vector<>(); // 연결된 모든 사용자 소켓
-
-    private Vector<User> users = new Vector<>(); // 접속 중인 모든 사용자 리스트
+    private List<User> users = new ArrayList<>(); // 접속 중인 모든 사용자 리스트
 
     private List<ChatRoom> chatRooms = new ArrayList<>();
 
@@ -26,10 +21,6 @@ public class ChatDao {
     public ChatDao() {
         // 로비 채팅방 기본으로 생성해두기
         lobby = new ChatRoom("Lobby");
-    }
-
-    public void addSocket(Socket socket) {
-        sockets.add(socket);
     }
 
     public void addUser(User user) {
@@ -60,10 +51,6 @@ public class ChatDao {
 
     public Optional<User> getUser(String userId) {
         return users.stream().filter(user -> user.getId().equals(userId)).findAny();
-    }
-
-    public List<Socket> getSockets() {
-        return sockets;
     }
 
     public List<ChatRoom> getChatRooms() { return chatRooms; }

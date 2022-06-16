@@ -185,18 +185,11 @@
 
       `Request` 의 전송 주체는 `Client`,  `Response` 의 전송 주체는 `Server`
 
-      
-
-      | 데이터 종류                | 문자열                                                       | 파싱 객체                                |
-      | -------------------------- | ------------------------------------------------------------ | ---------------------------------------- |
-      | 로그인 정보                | `LOGIN:userId,userName`                                      | `LoginRequest `                          |
-      | 초기 데이터 정보           | `LOGIN:chatRoomName|chatRoomName.. +userId,userName|userId,userName..` | `InitDataResponse`                       |
-      | 채팅방 생성 정보           | `CREATE_CHAT:chatRoomName,userId`                            | `CreateChatRoomRequest`                  |
-      | 채팅방 입장 정보           | `ENTER_CHAT:chatRoomName,userId`                             | `EnterChatRequest`                       |
-      | 채팅방 퇴장 정보           | `EXIT_CHAT:chatRoomName,userId`                              | `ExitChatRequest`                        |
-      | 채팅 메시지 정보           | `MESSAGE:messageType,chatRoomName,userName,message`          | `MessageRequest` <br />`MessageResponse` |
-      | 채팅방 <br />사용자 리스트 | `USER_LIST:chatRoomName|userId,userName..`                   | `UserListResponse`                       |
-      | 채팅방 리스트              | `CHAT_ROOM_LIST:userName,userName..` 또는 `CHAT_ROOM_LIST:empty` | `ChatRoomListResponse`                   |
+       <br>
+         <p align="center">
+           <img src="/image/parse-data-table.png" width="1000" align="center">
+         </p>
+       <br>
 
       
 

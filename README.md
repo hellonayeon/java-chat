@@ -1,6 +1,6 @@
-# 채팅 프로그램
+# 자바 채팅 프로그램
 
-`Java Swing` 환경의 텍스트 채팅 애플리케이션으로, `Socket` 통신과 `Multi Thread` 프로그래밍으로 구현한 프로그
+`Java Swing` 환경의 텍스트 채팅 애플리케이션으로, `Socket` 통신과 `Multi Thread` 프로그래밍으로 구현한 프로그램 📌 [Github 주소](https://github.com/hellonayeon/java-chat-program)
 
 
 
@@ -37,9 +37,11 @@
   * `이름`: 사용자 목록과 채팅을 입력한 사람을 표시하는 데이터
 
   <br>
+  
   <p align="center">
-     <img src="/image/login-frame.png" width="600" align="center">
+     <img src="./image/login-frame.png" width="600" align="center">
   </p>
+  
   <br>
 
 
@@ -50,8 +52,9 @@
 
 <br>
   <p align="center">
-     <img src="/image/lobby-frame.png" width="800" align="center">
+     <img src="./image/lobby-frame.png" width="800" align="center">
   </p>
+
 <br>
 
 
@@ -65,73 +68,79 @@
 
      <br>
        <p align="center">
-          <img src="/image/create-chat-frame.png" width="600" align="center">
+          <img src="./image/create-chat-frame.png" width="600" align="center">
        </p>
+    
      <br>
-      
 
+    
     * 생성된 채팅방 목록들은 로비에서 확인 가능
-
-
-      <br>
-        <p align="center">
-           <img src="/image/chat-room-list.png" width="600" align="center">
-        </p>
+    
       <br>
     
-
+          <p align="center">
+             <img src="./image/chat-room-list.png" width="600" align="center">
+          </p>
+    
+        <br>
+    
     * 채팅방 목록에서 `채팅방 이름 클릭` 하면, 해당 채팅 화면 출력
-
-
-     <br>
-       <p align="center">
-          <img src="/image/click-chat-room-name.png" width="600" align="center">
-       </p>
-     <br>    
+    
+      <br>
+         <p align="center">
+            <img src="./image/click-chat-room-name.png" width="600" align="center">
+         </p>
+    
+       <br>     
 
 
 * 채팅방 화면
 
   * 해당 채팅방에 접속한 사용자 목록 출력
-
-
-   <br>
-     <p align="center">
-        <img src="/image/chat-room-chat.png" width="800" align="center">
-     </p>
-   <br>
-
+  
+    <br>
+  
+         <p align="center">
+            <img src="./image/chat-room-chat.png" width="800" align="center">
+         </p>
+  
+       <br>
+  
+  *   `나가기 버튼 클릭` 하면 채팅창에 퇴장 메시지 출력되고, 사용자 목록 갱신
+  
+       <br>
+         <p align="center">
+            <img src="./image/exit-btn-click.png" width="600" align="center">
+         </p>
+  
+    ​      <br>
+  
+  
+    * 모든 사용자가 채팅방에서 나간 경우, 채팅방 이름을 로비의 채팅 목록에서 제거
+  
+      
+      * `채팅방 이름1` 목록에서 제거
+      
+          <br>
+      
+            <p align="center">
+               <img src="./image/remove-chat-room-name.png" width="600" align="center">
+            </p>
+      
+          <br>
+      
+    * 이미 열려있는 채팅방을 다시 들어가려 할 경우 오류 팝업 출력
+  
+      <br>
+  
+        <p align="center">
+           <img src="./image/chat-room-reopen-error.png" width="600" align="center">
+        </p>
+  
+      <br>
   
 
-  * `나가기 버튼 클릭` 하면 채팅창에 퇴장 메시지 출력되고, 사용자 목록 갱신
 
-  
-   <br>
-     <p align="center">
-        <img src="/image/exit-btn-click.png" width="600" align="center">
-     </p>
-   <br>
-  
-
-  * 모든 사용자가 채팅방에서 나간 경우, 채팅방 이름을 로비의 채팅 목록에서 제거
-
-    * `채팅방 이름1` 목록에서 제거
-
-<br>
-  <p align="center">
-     <img src="/image/remove-chat-room-name.png" width="600" align="center">
-  </p>
-<br>
-    
-
-  * 이미 열려있는 채팅방을 다시 들어가려 할 경우 오류 팝업 출력
-
-
-<br>
-  <p align="center">
-     <img src="/image/chat-room-reopen-error.png" width="600" align="center">
-  </p>
-<br>
 
 
 
@@ -169,165 +178,162 @@
   * `Response DTO`: 서버가 사용자에게 보내는 메시지 (객체 내용을 문자열로 생성)
 
     * 흐름도
-
-
-     <br>
-       <p align="center">
-          <img src="/image/string-object-parse.png" width="600" align="center">
-       </p>
-     <br>
-
-
-    * 파싱 데이터 테이블
-
-
-      `DtoType:data` 형식의 문자열로 메시지 송수신
-
-      `Request` 의 전송 주체는 `Client`,  `Response` 의 전송 주체는 `Server`
-
-       <br>
-         <p align="center">
-           <img src="/image/parse-data-table.png" width="1000" align="center">
-         </p>
-       <br>
-
-      
-
     
-
+      <br>
+         <p align="center">
+            <img src="./image/string-object-parse.png" width="600" align="center">
+         </p>
+    
+       <br>
+    
+    * 파싱 데이터 테이블
+    
+       `DtoType:data` 형식의 문자열로 메시지 송수신
+    
+        `Request` 의 전송 주체는 `Client`,  `Response` 의 전송 주체는 `Server`
+    
+         <br>
+    
+           <p align="center">
+             <img src="./image/parse-data-table.png" width="1000" align="center">
+           </p>
+    
+         <br>
+    
+      
+    
     * `DtoType` 에 따라 메시지 송수신부에서 분기 처리
     
-
       ```java
-      class enum DtoType {
-        	INIT, // 로그인 후 초기 데이터 전송 관련 메시지 (사용자 리스트, 채팅방 리스트)
-      
-          LOGIN, // 로그인 메시지 (사용자 생성, 리스트에 추가)
-          CREATE_CHAT, // 새로운 채팅방 생성 메시지
-          ENTER_CHAT, EXIT_CHAT, // 채팅방 입장, 퇴장 메시지
-          MESSAGE, // 채팅 메시지
-      
-          USER_LIST, CHAT_ROOM_LIST, // 사용자 리스트, 채팅방 리스트 메시지
-      }
+        class enum DtoType {
+          	INIT, // 로그인 후 초기 데이터 전송 관련 메시지 (사용자 리스트, 채팅방 리스트)
+        
+            LOGIN, // 로그인 메시지 (사용자 생성, 리스트에 추가)
+            CREATE_CHAT, // 새로운 채팅방 생성 메시지
+            ENTER_CHAT, EXIT_CHAT, // 채팅방 입장, 퇴장 메시지
+            MESSAGE, // 채팅 메시지
+        
+            USER_LIST, CHAT_ROOM_LIST, // 사용자 리스트, 채팅방 리스트 메시지
+        }
       ```
-
-      ```java
-      class DTO {
-        	DtoType type;
-      
-          public DTO(DtoType type) {
-              this.type = type;
-          }
-      
-          public DtoType getType() {
-              return type;
-          }
-      
-          @Override
-          public String toString() {
-              return type + ":";
-          }
-      }
-      ```
-
     
-
+        ```java
+        class DTO {
+          	DtoType type;
+        
+            public DTO(DtoType type) {
+                this.type = type;
+            }
+        
+            public DtoType getType() {
+                return type;
+            }
+        
+            @Override
+            public String toString() {
+                return type + ":";
+            }
+        }
+        ```
+    
     * 예시 코드
-
+    
       ```java
-      /* Client Request */
-      
-      // Client Application
-      public class LoginRequest extends DTO {
-      
-          String id;
-      
-          String name;
-      
-          public LoginRequest(String id, String name) {
-              super(DtoType.LOGIN);
-      
-              this.id = id;
-              this.name = name;
-          }
-      
-        	// 데이터 보낼 때 객체 내용을 바탕으로 문자열로 바꿔서 전송
-          @Override
-          public String toString() {
-              return super.toString() + id + "," + name;
-          }
-      }
-      
-      // Server Application
-      public class LoginRequest {
-      
-          String id;
-      
-          String name;
-      
-        	// 스트링 메시지로 수신한 내용을 객체로 파싱해서 사용
-          public LoginRequest(String message) {
-              String[] value = message.split(",");
-              id = value[0];
-              name = value[1];
-          }
-      
-          public String getId() {
-              return id;
-          }
-      
-          public String getName() {
-              return name;
-          }
-      }		
+        /* Client Request */
+        
+        // Client Application
+        public class LoginRequest extends DTO {
+        
+            String id;
+        
+            String name;
+        
+            public LoginRequest(String id, String name) {
+                super(DtoType.LOGIN);
+        
+                this.id = id;
+                this.name = name;
+            }
+        
+          	// 데이터 보낼 때 객체 내용을 바탕으로 문자열로 바꿔서 전송
+            @Override
+            public String toString() {
+                return super.toString() + id + "," + name;
+            }
+        }
+        
+        // Server Application
+        public class LoginRequest {
+        
+            String id;
+        
+            String name;
+        
+          	// 스트링 메시지로 수신한 내용을 객체로 파싱해서 사용
+            public LoginRequest(String message) {
+                String[] value = message.split(",");
+                id = value[0];
+                name = value[1];
+            }
+        
+            public String getId() {
+                return id;
+            }
+        
+            public String getName() {
+                return name;
+            }
+        }		
       ```
+    
+        ```java
+        /* Server Response */
+        
+        // Server Application
+        public class ChatRoomListResponse extends DTO {
+        
+            List<ChatRoom> chatRooms;
+        
+            public ChatRoomListResponse(List<ChatRoom> chatRooms) {
+                super(DtoType.CHAT_ROOM_LIST);
+        
+                this.chatRooms = chatRooms;
+            }
+        
+          	// Object to String
+            @Override
+            public String toString() {
+                String str = super.toString();
+        
+                for (ChatRoom chatRoom : chatRooms) {
+                    str += chatRoom.getName() + ",";
+                }
+                return (chatRooms.size() > 0) ? str.substring(0, str.length() - 1) : str + "empty";
+            }
+        }
+        
+        // Client Application
+        public class ChatRoomListResponse {
+        
+            List<ChatRoom> chatRooms = new ArrayList<>();
+        
+          	// String to Object
+            public ChatRoomListResponse(String message) {
+                if (!message.equals("empty")) {
+                    String[] names = message.split(",");
+                    for(String name : names) {
+                        chatRooms.add(new ChatRoom(name));
+                    }
+                }
+            }
+        
+            public List<ChatRoom> getChatRooms() {
+                return chatRooms;
+            }
+        }
+        ```
 
-      ```java
-      /* Server Response */
-      
-      // Server Application
-      public class ChatRoomListResponse extends DTO {
-      
-          List<ChatRoom> chatRooms;
-      
-          public ChatRoomListResponse(List<ChatRoom> chatRooms) {
-              super(DtoType.CHAT_ROOM_LIST);
-      
-              this.chatRooms = chatRooms;
-          }
-      
-        	// Object to String
-          @Override
-          public String toString() {
-              String str = super.toString();
-      
-              for (ChatRoom chatRoom : chatRooms) {
-                  str += chatRoom.getName() + ",";
-              }
-              return (chatRooms.size() > 0) ? str.substring(0, str.length() - 1) : str + "empty";
-          }
-      }
-      
-      // Client Application
-      public class ChatRoomListResponse {
-      
-          List<ChatRoom> chatRooms = new ArrayList<>();
-      
-        	// String to Object
-          public ChatRoomListResponse(String message) {
-              if (!message.equals("empty")) {
-                  String[] names = message.split(",");
-                  for(String name : names) {
-                      chatRooms.add(new ChatRoom(name));
-                  }
-              }
-          }
-      
-          public List<ChatRoom> getChatRooms() {
-              return chatRooms;
-          }
-      }
-      ```
+   
 
 
 
@@ -423,49 +429,47 @@
   * 클래스 다이어그램
 
     
+
 <br>
   <p align="center">
-     <img src="/image/server-class-flow.png" width="1000" align="center">
+     <img src="./image/server-class-flow.png" width="1000" align="center">
   </p>
+
 <br>
     
 
   * 인스턴스 다이어그램
 
     * 클라이언트 소켓 연결
-
-
-      <br>
-        <p align="center">
-           <img src="/image/client-socket-connect.png" width="600" align="center">
-        </p>
-      <br>
-
-
-    * 사용자 정보 생성 (아이디, 이름 입력 후)
-
-
-      <br>
-        <p align="center">
-           <img src="/image/create-user.png" width="600" align="center">
-        </p>
-      <br>
-
     
-
+      <br>
+          <p align="center">
+             <img src="./image/client-socket-connect.png" width="600" align="center">
+          </p>
+        <br>
+    
+    * 사용자 정보 생성 (아이디, 이름 입력 후)
+    
+      <br>
+    
+      <p align="center">
+         <img src="./image/create-user.png" width="600" align="center">
+      </p>
+    
+        <br>
+    
     * 새로운 채팅방 생성
-
+    
       <br>
-        <p align="center">
-           <img src="/image/create-chat-room.png" width="600" align="center">
-        </p>
-      <br>
-
-      
-
-      
+          <p align="center">
+             <img src="./image/create-chat-room.png" width="600" align="center">
+          </p>
+        <br>
 
 
+​      
+
+​      
 
 ## 클라이언트 애플리케이션
 
@@ -522,8 +526,9 @@
 
 <br>
   <p align="center">
-     <img src="/image/client-view-frame.png" width="1000" align="center">
+     <img src="./image/client-view-frame.png" width="1000" align="center">
   </p>
+
 <br>
 
 
